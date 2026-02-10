@@ -287,7 +287,33 @@
  if (d < 140) moveNo(e.clientX, e.clientY);
  });
  
- noBtn.addEventListener("click", e => e.preventDefault());
+// Stop "No" from being clickable
+noBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+});
+
+// Pointer (modern)
+zone.addEventListener("pointermove", function (e) {
+  const b = noBtn.getBoundingClientRect();
+  const d = Math.hypot(
+    (b.left + b.width / 2) - e.clientX,
+    (b.top + b.height / 2) - e.clientY
+  );
+  if (d < 140) moveNo(e.clientX, e.clientY);
+});
+
+// Mouse fallback (some setups behave better with this)
+zone.addEventListener("mousemove", function (e) {
+  const b = noBtn.getBoundingClientRect();
+  const d = Math.hypot(
+    (b.left + b.width / 2) - e.clientX,
+    (b.top + b.height / 2) - e.clientY
+  );
+  if (d < 140) moveNo(e.clientX, e.clientY);
+});
+
+});
+
  
  /* ---------- YES CLICK ---------- */
  yesBtn.addEventListener("click", () => {
