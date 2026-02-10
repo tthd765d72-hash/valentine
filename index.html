@@ -5,7 +5,6 @@
   const result = document.getElementById("result");
   const hint = document.getElementById("hint");
 
-  /* ---------- CONFETTI ---------- */
   const confettiCanvas = document.getElementById("confettiCanvas");
 
   function resizeConfettiCanvas() {
@@ -18,16 +17,11 @@
 
   resizeConfettiCanvas();
   window.addEventListener("resize", resizeConfettiCanvas);
-  window.addEventListener("orientationchange", () => setTimeout(resizeConfettiCanvas, 150));
 
-  // If confetti gets blocked, don't crash the page
   let confettiInstance = null;
   try {
     if (window.confetti && typeof window.confetti.create === "function") {
-      confettiInstance = window.confetti.create(confettiCanvas, {
-        resize: false,
-        useWorker: true
-      });
+      confettiInstance = window.confetti.create(confettiCanvas, { resize: false, useWorker: true });
     }
   } catch (e) {
     confettiInstance = null;
@@ -60,14 +54,12 @@
     }, 300);
   }
 
-  /* ---------- YES BUTTON GROWS ---------- */
   let yesScale = 1;
   function growYes() {
     yesScale = Math.min(2.2, yesScale + 0.1);
     yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
   }
 
-  /* ---------- NO BUTTON RUNS AWAY ---------- */
   function clamp(n, min, max) {
     return Math.max(min, Math.min(max, n));
   }
@@ -113,10 +105,8 @@
     handleMove(t.clientX, t.clientY);
   }, { passive: true });
 
-  // Stop "No" from being clickable
   noBtn.addEventListener("click", (e) => e.preventDefault());
 
-  /* ---------- YES CLICK ---------- */
   yesBtn.addEventListener("click", () => {
     zone.style.display = "none";
     hint.style.display = "none";
